@@ -1,0 +1,858 @@
+{
+  "sections": [
+    {
+      "id": "00_intro",
+      "title": "Hello, Gopherlings",
+      "blurb": "Say hello and learn how gopherlings works."
+    },
+    {
+      "id": "01_variables",
+      "title": "Variables \u0026 Constants",
+      "blurb": "Declaring, inferring, and never changing."
+    },
+    {
+      "id": "02_basic_types",
+      "title": "Basic Types",
+      "blurb": "Ints, floats, bools, and honest conversions."
+    },
+    {
+      "id": "03_functions",
+      "title": "Functions",
+      "blurb": "Multiple returns, variadics, and closures."
+    },
+    {
+      "id": "04_control_flow",
+      "title": "Control Flow",
+      "blurb": "if, for, switch, and the occasional label."
+    },
+    {
+      "id": "05_structs",
+      "title": "Structs \u0026 Methods",
+      "blurb": "Your own types, with behavior attached."
+    },
+    {
+      "id": "06_slices",
+      "title": "Slices",
+      "blurb": "Growing, sharing, and slicing windows."
+    },
+    {
+      "id": "07_maps",
+      "title": "Maps",
+      "blurb": "Key-value lookups and the comma-ok idiom."
+    },
+    {
+      "id": "08_strings",
+      "title": "Strings, Runes \u0026 Bytes",
+      "blurb": "UTF-8 all the way down."
+    },
+    {
+      "id": "09_pointers",
+      "title": "Pointers",
+      "blurb": "Addresses, dereferences, and nil."
+    },
+    {
+      "id": "10_interfaces",
+      "title": "Interfaces",
+      "blurb": "Small interfaces, big flexibility."
+    },
+    {
+      "id": "11_errors",
+      "title": "Errors",
+      "blurb": "Errors are values. Handle them."
+    },
+    {
+      "id": "12_generics",
+      "title": "Generics",
+      "blurb": "Type parameters and constraints."
+    },
+    {
+      "id": "13_concurrency",
+      "title": "Concurrency",
+      "blurb": "Goroutines, channels, select, and friends."
+    },
+    {
+      "id": "14_stdlib",
+      "title": "Standard Library",
+      "blurb": "Batteries included: time, json, io, testing."
+    }
+  ],
+  "exercises": [
+    {
+      "id": "01_hello",
+      "section": "00_intro",
+      "name": "Hello, Gopher",
+      "kind": "compile",
+      "blurb": "Fix your first compile error.",
+      "hints": [
+        "Go is case-sensitive: `Message` and `message` are two different names. The variable declared in greeting is called `message`.",
+        "The compiler error says `undefined: Message` and points at the exact line. Return the `message` variable instead."
+      ]
+    },
+    {
+      "id": "02_fmt",
+      "section": "00_intro",
+      "name": "Formatting with fmt",
+      "kind": "test",
+      "blurb": "Build strings with fmt.Sprintf and the %s verb.",
+      "hints": [
+        "`fmt.Sprintf` works like `fmt.Printf` but returns the string instead of printing it: `fmt.Sprintf(\"Welcome to gopherlings, %s!\", name)`.",
+        "The %s verb is replaced by the string argument. Make sure the exclamation mark is there: \"Welcome to gopherlings, %s!\""
+      ]
+    },
+    {
+      "id": "03_add",
+      "section": "00_intro",
+      "name": "Your First Line",
+      "kind": "test",
+      "blurb": "Write the body of your first function.",
+      "hints": [
+        "The `+` operator adds two numbers: `a + b`.",
+        "Replace `return 0` with `return a + b`."
+      ]
+    },
+    {
+      "id": "01_declare",
+      "section": "01_variables",
+      "name": "Declaring Variables",
+      "kind": "compile",
+      "blurb": "Fix declarations whose types do not match their values.",
+      "hints": [
+        "Read the compiler errors: each one tells you the type of the value and the type you declared.",
+        "The declared type must match the value: 5 is an int, true is a bool, 3.14 is a float64.",
+        "Change the types, not the values: `var count int`, `var ready bool`, `var pi float64`."
+      ]
+    },
+    {
+      "id": "02_zero_values",
+      "section": "01_variables",
+      "name": "Zero Values",
+      "kind": "test",
+      "blurb": "See what uninitialized variables hold in Go.",
+      "hints": [
+        "Declare the three variables with `var` and nothing after the name: `var n int`.",
+        "Do not assign anything -- Go fills in each type's zero value for you.",
+        "The body becomes: `var n int`, `var s string`, `var b bool`, then `return n, s, b`."
+      ]
+    },
+    {
+      "id": "03_multiple_assignment",
+      "section": "01_variables",
+      "name": "Multiple Assignment",
+      "kind": "test",
+      "blurb": "Swap two variables in one statement.",
+      "hints": [
+        "One statement can assign several variables: `x, y = y, x`.",
+        "The right-hand side is evaluated before anything is assigned, so no temporary variable is needed.",
+        "Write `a, b = b, a` before the return."
+      ]
+    },
+    {
+      "id": "04_constants",
+      "section": "01_variables",
+      "name": "Constants",
+      "kind": "compile",
+      "blurb": "Declare constants correctly and learn why they cannot change.",
+      "hints": [
+        "Constants use `=`, never `:=`: `const days = 7`.",
+        "A constant cannot be reassigned -- the `days = 8` line must go.",
+        "daysInWeek should just be `return days`."
+      ]
+    },
+    {
+      "id": "05_iota",
+      "section": "01_variables",
+      "name": "Enumerations with iota",
+      "kind": "test",
+      "blurb": "Number the weekdays automatically with iota.",
+      "hints": [
+        "In a const block, `iota` starts at 0 and counts up by one on every line.",
+        "Give the first line `Sunday = iota` and leave the other lines with no value at all -- they repeat it.",
+        "The block is `Sunday = iota` followed by Monday through Saturday on their own lines, and isWeekend returns `d == Saturday || d == Sunday`."
+      ]
+    },
+    {
+      "id": "01_ints",
+      "section": "02_basic_types",
+      "name": "Integer Division",
+      "kind": "test",
+      "blurb": "Watch int / int throw away the remainder.",
+      "hints": [
+        "When both operands are ints, `/` truncates: 3 / 2 is 1, not 1.5.",
+        "float64(a + b) converts the sum BEFORE the division; the current code converts after, when it is too late.",
+        "Return `float64(a+b) / 2`."
+      ]
+    },
+    {
+      "id": "02_floats",
+      "section": "02_basic_types",
+      "name": "Floating Point",
+      "kind": "test",
+      "blurb": "Compare floats with an epsilon, not ==.",
+      "hints": [
+        "0.1 + 0.2 is not exactly 0.3 in binary floating point -- it differs by about 5e-17.",
+        "Call the values equal when their absolute difference is below a tiny threshold: math.Abs(a-b) \u003c 1e-9.",
+        "Replace the body of nearlyEqual with exactly that comparison."
+      ]
+    },
+    {
+      "id": "03_bools",
+      "section": "02_basic_types",
+      "name": "Booleans \u0026 Comparisons",
+      "kind": "test",
+      "blurb": "Combine comparisons with \u0026\u0026 and ||.",
+      "hints": [
+        "Inclusive means the boundaries count: x may be equal to lo or to hi.",
+        "Two conditions are needed: x \u003e= lo AND x \u003c= hi, joined with \u0026\u0026.",
+        "Return `x \u003e= lo \u0026\u0026 x \u003c= hi`."
+      ]
+    },
+    {
+      "id": "04_conversions",
+      "section": "02_basic_types",
+      "name": "Numbers \u0026 Strings",
+      "kind": "compile",
+      "blurb": "Convert between strings and numbers with strconv.",
+      "hints": [
+        "A string is not a number: `s * 2` cannot compile. Import strconv and parse with strconv.Atoi.",
+        "strconv.Atoi returns two values: `n, _ := strconv.Atoi(s)`. Ignoring the error with _ is fine for now.",
+        "The body is `n, _ := strconv.Atoi(s)` followed by `return strconv.Itoa(n * 2)`."
+      ]
+    },
+    {
+      "id": "01_multiple_returns",
+      "section": "03_functions",
+      "name": "Multiple Return Values",
+      "kind": "test",
+      "blurb": "Return two values at once and receive them with `q, r :=`.",
+      "hints": [
+        "Go returns several values as a comma-separated list: `return q, r`.",
+        "The quotient is `a / b` and the remainder is `a % b`.",
+        "The whole fix is one line: `return a / b, a % b`."
+      ]
+    },
+    {
+      "id": "02_named_returns",
+      "section": "03_functions",
+      "name": "Named Return Values",
+      "kind": "test",
+      "blurb": "Name your return values and let a naked return send them home.",
+      "hints": [
+        "The naked `return` sends back whatever the named results hold right now.",
+        "`rest` was never assigned, so it still holds its zero value, 0.",
+        "Add `rest = sum - half` before the `return`."
+      ]
+    },
+    {
+      "id": "03_variadic",
+      "section": "03_functions",
+      "name": "Variadic Functions",
+      "kind": "test",
+      "blurb": "Write a function that accepts any number of int arguments.",
+      "hints": [
+        "Inside the function, `nums` is just a []int slice — range over it.",
+        "Start the largest value at the first element (`nums[0]`), not at 0, so all-negative input works too.",
+        "Loop with `for _, n := range nums`; whenever `n \u003e largest`, set `largest = n`. Return `largest` at the end."
+      ]
+    },
+    {
+      "id": "04_closures",
+      "section": "03_functions",
+      "name": "Closures",
+      "kind": "test",
+      "blurb": "Return a function that remembers its own private counter.",
+      "hints": [
+        "The returned function can use variables declared in `counter` — that is what makes it a closure.",
+        "Declare `count := 0` in `counter`, before the `return func() ...` line.",
+        "Inside the returned function: `count++` and then `return count`."
+      ]
+    },
+    {
+      "id": "01_if_else",
+      "section": "04_control_flow",
+      "name": "if and else",
+      "kind": "test",
+      "blurb": "Route an int through if, else if and else to one of three answers.",
+      "hints": [
+        "You need three outcomes, so you need all three parts: `if`, `else if`, `else`.",
+        "The zero case comes last: when x is neither positive nor negative, it must be 0.",
+        "`if x \u003e 0 { return \"positive\" } else if x \u003c 0 { return \"negative\" } else { return \"zero\" }`."
+      ]
+    },
+    {
+      "id": "02_for",
+      "section": "04_control_flow",
+      "name": "Loops with for",
+      "kind": "test",
+      "blurb": "Go has one loop keyword: write the classic and the while-style for.",
+      "hints": [
+        "Both functions need a variable that changes as the loop runs — declare it before the loop.",
+        "sumTo: `for i := 1; i \u003c= n; i++ { total += i }`. powerOfTwo: keep doubling while `exp \u003e 0`.",
+        "powerOfTwo body: `result *= 2` and `exp--` each round; return `result` afterwards."
+      ]
+    },
+    {
+      "id": "03_switch",
+      "section": "04_control_flow",
+      "name": "switch",
+      "kind": "test",
+      "blurb": "Replace an if/else chain with a tagless switch for letter grades.",
+      "hints": [
+        "In a tagless switch every case is a full condition, like `case score \u003e= 90:`.",
+        "Order matters — the first matching case wins, so the highest range goes first.",
+        "Add `case score \u003e= 90: return \"A\"`, then 80 -\u003e \"B\", 70 -\u003e \"C\", 60 -\u003e \"D\", above the default."
+      ]
+    },
+    {
+      "id": "04_labels",
+      "section": "04_control_flow",
+      "name": "Labels, break \u0026 continue",
+      "kind": "test",
+      "blurb": "Break out of nested loops with a label and find the first negative.",
+      "hints": [
+        "A plain `break` only leaves the inner loop; the outer one happily keeps scanning.",
+        "Put a label before the outer `for` (like `outer:`), then `break outer` to leave both loops.",
+        "Declare `first := 0` before the loops; when you find a negative, store it and `break outer`. Return `first` after the loops."
+      ]
+    },
+    {
+      "id": "05_fizzbuzz",
+      "section": "04_control_flow",
+      "name": "FizzBuzz",
+      "kind": "test",
+      "blurb": "The classic capstone: loops, conditionals and a slice you build with append.",
+      "hints": [
+        "You need one string per number, appended in loop order: `result = append(result, s)`.",
+        "Check \"divisible by both 3 and 5\" FIRST — otherwise \"Fizz\" would catch 15 before FizzBuzz gets a chance.",
+        "If/else chain: `i%3 == 0 \u0026\u0026 i%5 == 0` -\u003e \"FizzBuzz\", `i%3 == 0` -\u003e \"Fizz\", `i%5 == 0` -\u003e \"Buzz\", else `strconv.Itoa(i)`."
+      ]
+    },
+    {
+      "id": "01_structs",
+      "section": "05_structs",
+      "name": "Struct Literals",
+      "kind": "compile",
+      "blurb": "Create structs with keyed literals and compare their fields.",
+      "hints": [
+        "The compiler error `too few values in Point literal` is about the unkeyed literal Point{3}: it must list every field in order, and one is missing.",
+        "Switch to the keyed form: Point{X: 3, Y: 4}. Keyed literals keep working when fields are reordered or added.",
+        "samePoint compares field by field: `return a.X == b.X \u0026\u0026 a.Y == b.Y`."
+      ]
+    },
+    {
+      "id": "02_methods",
+      "section": "05_structs",
+      "name": "Methods",
+      "kind": "test",
+      "blurb": "Give Rect an Area method with a value receiver.",
+      "hints": [
+        "Inside a method, the receiver (r) is the value the method was called on: r.W and r.H are its fields.",
+        "The area of a rectangle is width times height.",
+        "Replace the TODO line with `return r.W * r.H`."
+      ]
+    },
+    {
+      "id": "03_pointer_receivers",
+      "section": "05_structs",
+      "name": "Pointer Receivers",
+      "kind": "test",
+      "blurb": "Fix a method that silently edits a copy of its receiver.",
+      "hints": [
+        "Scale compiles but changes nothing: a value receiver hands the method a copy, and the copy is thrown away when the method returns.",
+        "Change the receiver in Scale's signature from Rect to *Rect so the method can reach the caller's rectangle.",
+        "`func (r *Rect) Scale(f float64)` -- field writes like r.W *= f then land in the original; Go auto-dereferences, so no extra * is needed."
+      ]
+    },
+    {
+      "id": "04_embedding",
+      "section": "05_structs",
+      "name": "Embedding",
+      "kind": "test",
+      "blurb": "Use an embedded struct's promoted field in a method.",
+      "hints": [
+        "Because Engine is embedded in Car (no field name), Engine's fields are promoted: a Car can read Horsepower as c.Horsepower.",
+        "Describe is one fmt.Sprintf call: %s for the make, %d for the horsepower.",
+        "`return fmt.Sprintf(\"%s with %d HP\", c.Make, c.Horsepower)` -- exact wording matters: \"Zephyr with 210 HP\"."
+      ]
+    },
+    {
+      "id": "01_basics",
+      "section": "06_slices",
+      "name": "Slice Fundamentals",
+      "kind": "test",
+      "blurb": "Index into a slice and sum it up with range.",
+      "hints": [
+        "Indexing starts at 0, so the second element lives at xs[1].",
+        "For total, declare sum := 0 before the loop, then walk the slice with `for _, v := range xs`.",
+        "Add each value to the sum inside the loop (`sum += v`) and return it after the loop."
+      ]
+    },
+    {
+      "id": "02_append",
+      "section": "06_slices",
+      "name": "Growing with append",
+      "kind": "test",
+      "blurb": "Grow a slice with append, and keep the slice it returns.",
+      "hints": [
+        "append(xs, v) returns the grown slice -- but growing may allocate a new backing array, so the result can be a different slice value than xs.",
+        "Keep the return value: the idiomatic line is xs = append(xs, v).",
+        "push can be a one-liner: `return append(xs, v)`."
+      ]
+    },
+    {
+      "id": "03_aliasing",
+      "section": "06_slices",
+      "name": "Slice Aliasing",
+      "kind": "test",
+      "blurb": "Copy a slice so the original stops sharing its memory.",
+      "hints": [
+        "Returning xs directly hands back the very memory the test's orig uses -- the test writes res[0] = 99 and watches orig change with it.",
+        "You need a fresh backing array with the elements copied over. The slices package has a helper for exactly this.",
+        "`return slices.Clone(xs)` -- or the classic `append([]int(nil), xs...)`."
+      ]
+    },
+    {
+      "id": "04_slicing",
+      "section": "06_slices",
+      "name": "Slice Expressions",
+      "kind": "test",
+      "blurb": "Cut a slice down to its middle with a slice expression.",
+      "hints": [
+        "You want the elements from index 1 up to -- but not including -- index len(xs)-1: one slice expression, no copying.",
+        "Handle the short cases first: if len(xs) \u003c 3 there is no middle, so return nil.",
+        "`return xs[1 : len(xs)-1]` -- the range is half-open: index 1 is in, index len(xs)-1 is out. Like cloneOf showed, it shares memory with xs."
+      ]
+    },
+    {
+      "id": "05_two_d",
+      "section": "06_slices",
+      "name": "2D Slices",
+      "kind": "test",
+      "blurb": "Build an identity matrix as a slice of slices.",
+      "hints": [
+        "Start with `grid := make([][]int, n)`: n rows, each still nil and waiting for its own make.",
+        "Loop over the rows, and for each row allocate the columns: `grid[i] = make([]int, n)`.",
+        "Inside a nested loop over the columns, put a 1 where the row index equals the column index: `if i == j { grid[i][j] = 1 }`."
+      ]
+    },
+    {
+      "id": "01_literals",
+      "section": "07_maps",
+      "name": "Map Literals",
+      "kind": "test",
+      "blurb": "Create a map with a literal and meet the zero value missing keys return.",
+      "hints": [
+        "A nil map is not the same as an empty map: you have to create one, either with a literal or with make.",
+        "A map literal writes the type followed by the pairs: map[string]int{\"alice\": 31, ...}.",
+        "Make ages return map[string]int{\"alice\": 31, \"bob\": 27}."
+      ]
+    },
+    {
+      "id": "02_comma_ok",
+      "section": "07_maps",
+      "name": "The comma-ok idiom",
+      "kind": "test",
+      "blurb": "Tell a missing key apart from a stored zero value.",
+      "hints": [
+        "m[k] on a missing key just returns 0, so it cannot tell you whether the key was there at all.",
+        "The comma-ok idiom asks for the value and an existence flag in one go: v, ok := m[k].",
+        "Replace the return with `v, ok := m[k]` on one line and `return v, ok` on the next."
+      ]
+    },
+    {
+      "id": "03_delete",
+      "section": "07_maps",
+      "name": "Deleting Keys",
+      "kind": "test",
+      "blurb": "Remove an entry from a map with the delete builtin.",
+      "hints": [
+        "Go ships a builtin for exactly this: delete(m, key).",
+        "delete(m, k) mutates m in place. Maps are reference types, so returning m afterwards is enough.",
+        "The whole body is two lines: delete(m, k), then return m."
+      ]
+    },
+    {
+      "id": "04_iteration",
+      "section": "07_maps",
+      "name": "Iterating Maps",
+      "kind": "test",
+      "blurb": "Range over a map and collect its keys in sorted order.",
+      "hints": [
+        "for k := range m visits every key, but in randomized order, so sort before returning.",
+        "Collect the keys into a []string inside the loop, then sort the slice with sort.Strings.",
+        "keys := make([]string, 0, len(m)); fill it with append in the loop; sort.Strings(keys); return keys. The modern one-liner is slices.Sorted(maps.Keys(m))."
+      ]
+    },
+    {
+      "id": "01_runes",
+      "section": "08_strings",
+      "name": "len Counts Bytes",
+      "kind": "test",
+      "blurb": "Count characters, not bytes, with utf8.RuneCountInString.",
+      "hints": [
+        "len(s) counts bytes, and some characters take more than one byte in UTF-8.",
+        "utf8.RuneCountInString(s) counts runes: the characters you actually see.",
+        "return utf8.RuneCountInString(s). Counting the steps of a `for range s` loop works too."
+      ]
+    },
+    {
+      "id": "02_reverse",
+      "section": "08_strings",
+      "name": "Reversing Runes",
+      "kind": "test",
+      "blurb": "Reverse characters, not bytes, so multi-byte letters survive.",
+      "hints": [
+        "The swap loop is fine, it is just operating on bytes, which shreds two-byte letters.",
+        "Convert to []rune first so each element is a whole character, then convert back with string().",
+        "r := []rune(s); keep the loop but swap r[i] and r[j]; return string(r)."
+      ]
+    },
+    {
+      "id": "03_strings_pkg",
+      "section": "08_strings",
+      "name": "The strings Package",
+      "kind": "test",
+      "blurb": "Trim, lowercase and replace spaces using strings helpers.",
+      "hints": [
+        "The strings package has ready-made helpers. You need three of them, chained.",
+        "strings.TrimSpace trims the edges, strings.ToLower lowercases, strings.ReplaceAll(s, \" \", \"-\") swaps spaces for hyphens.",
+        "return strings.ReplaceAll(strings.ToLower(strings.TrimSpace(s)), \" \", \"-\")"
+      ]
+    },
+    {
+      "id": "04_builder",
+      "section": "08_strings",
+      "name": "strings.Builder",
+      "kind": "test",
+      "blurb": "Join lines efficiently with strings.Builder instead of +.",
+      "hints": [
+        "Every s += x copies the whole string; strings.Builder appends into one buffer instead.",
+        "Declare var b strings.Builder, WriteString each piece, then return b.String() at the end.",
+        "Loop over the lines; write \"\\n\" before every line except the first, then return b.String()."
+      ]
+    },
+    {
+      "id": "01_deref",
+      "section": "09_pointers",
+      "name": "Taking \u0026 Dereferencing",
+      "kind": "compile",
+      "blurb": "Take an address with \u0026, follow it with *, and double the value behind a pointer.",
+      "hints": [
+        "`p` holds an address; the value lives behind it. `\u0026x` takes an address, `*p` follows one.",
+        "Go has no pointer arithmetic -- the only thing to do with p here is dereference it before multiplying.",
+        "Replace the body with `*p *= 2`."
+      ]
+    },
+    {
+      "id": "02_nil",
+      "section": "09_pointers",
+      "name": "Nil Pointers",
+      "kind": "test",
+      "blurb": "A nil pointer points at nothing -- check it before you follow it.",
+      "hints": [
+        "The zero value of a pointer is nil, and dereferencing nil panics at runtime.",
+        "Compare the pointer against nil first and return the zero string from that branch.",
+        "Start the function with `if p == nil { return \"\" }`, then `return *p`."
+      ]
+    },
+    {
+      "id": "03_swap",
+      "section": "09_pointers",
+      "name": "Swap via Pointers",
+      "kind": "compile",
+      "blurb": "Pass pointers so a function can really exchange its caller's two variables.",
+      "hints": [
+        "The call sites pass `\u0026x` and `\u0026y`, but the parameters are plain ints -- the types do not match.",
+        "Change the signature to `func swap(a, b *int)`, then combine multiple assignment with dereferencing.",
+        "The body becomes a single line: `*a, *b = *b, *a`."
+      ]
+    },
+    {
+      "id": "01_satisfy",
+      "section": "10_interfaces",
+      "name": "Implicit Satisfaction",
+      "kind": "compile",
+      "blurb": "Make Dog satisfy Speaker by giving it the method the interface asks for.",
+      "hints": [
+        "There is no `implements` keyword: a type satisfies an interface just by having its methods.",
+        "Speaker wants a method named Speak returning string. Dog already has the right shape under the wrong name.",
+        "Rename Dog's Bark method to Speak, and make announce return \"It says: \" + s.Speak()."
+      ]
+    },
+    {
+      "id": "02_polymorphism",
+      "section": "10_interfaces",
+      "name": "Programming to Interfaces",
+      "kind": "test",
+      "blurb": "Loop over a []Speaker and collect what each one says.",
+      "hints": [
+        "One interface, many types: the slice holds Dogs, Cats and Robots, but you only ever call Speak().",
+        "Start with an empty []string, range over the speakers, and append each s.Speak().",
+        "`said := make([]string, 0, len(speakers))`, then `said = append(said, s.Speak())` inside `for _, s := range speakers`."
+      ]
+    },
+    {
+      "id": "03_type_switch",
+      "section": "10_interfaces",
+      "name": "Type Switches",
+      "kind": "test",
+      "blurb": "Use a type switch to name the kind of value hiding inside an any.",
+      "hints": [
+        "A type switch looks like a regular switch, but each case names a type: `switch v.(type) { case int: ... }`.",
+        "Cover int, string, bool and nil, then default for the rest. Bind a variable (switch x := v.(type)) only if you use it -- an unused binding is a compile error.",
+        "`case nil:` catches v == nil and returns \"nothing\"; default returns \"unknown\"."
+      ]
+    },
+    {
+      "id": "04_stringer",
+      "section": "10_interfaces",
+      "name": "The Stringer Interface",
+      "kind": "test",
+      "blurb": "Add one method so fmt prints your type the way you want.",
+      "hints": [
+        "At print time fmt checks whether a value has a String() string method, and calls it for %v.",
+        "Give Temperature a method with receiver `(t Temperature)`; convert to float64 before formatting.",
+        "`func (t Temperature) String() string { return fmt.Sprintf(\"%.1f°C\", float64(t)) }`"
+      ]
+    },
+    {
+      "id": "05_method_sets",
+      "section": "10_interfaces",
+      "name": "Method Sets Gotcha",
+      "kind": "compile",
+      "blurb": "Pointer-receiver methods live only on *T -- store the pointer in the interface.",
+      "hints": [
+        "Inc has a pointer receiver, so it belongs to *Counter's method set, not Counter's.",
+        "The fix is at the marked assignment: hand the interface a *Counter instead of a Counter value.",
+        "`var inc Incrementer = \u0026c` -- now the interface holds a pointer whose method set has both methods."
+      ]
+    },
+    {
+      "id": "01_error_values",
+      "section": "11_errors",
+      "name": "Returning Errors",
+      "kind": "test",
+      "blurb": "Return an error value next to the result instead of dividing by zero quietly.",
+      "hints": [
+        "Go has no exceptions here: problems come back as an error value beside the result, nil when all is well.",
+        "Guard the function with `if b == 0` and build the error with errors.New (you will need to add the \"errors\" import).",
+        "Return `0, errors.New(\"cannot divide by zero\")` in that branch, and `a / b, nil` otherwise."
+      ]
+    },
+    {
+      "id": "02_sentinels",
+      "section": "11_errors",
+      "name": "Sentinel Errors",
+      "kind": "test",
+      "blurb": "Return the one shared ErrNotFound value so errors.Is can recognize it.",
+      "hints": [
+        "errors.Is compares error VALUES, not their text -- the current code mints a new error on every call.",
+        "The ErrNotFound sentinel is already declared at the top of the file; use it.",
+        "Replace `errors.New(\"not found\")` inside find with `ErrNotFound`."
+      ]
+    },
+    {
+      "id": "03_wrapping",
+      "section": "11_errors",
+      "name": "Wrapping Errors",
+      "kind": "test",
+      "blurb": "Wrap ErrNotFound with the key as context, keeping the error chain intact.",
+      "hints": [
+        "%v formats the wrapped error into the message but drops the link to it -- the text looks right and errors.Is fails.",
+        "fmt.Errorf has a wrapping verb, %w, which embeds the error AND records it for errors.Is to find.",
+        "Change %v to %w in the fmt.Errorf call: `fmt.Errorf(\"load %q: %w\", key, ErrNotFound)`."
+      ]
+    },
+    {
+      "id": "04_custom_errors",
+      "section": "11_errors",
+      "name": "Custom Error Types",
+      "kind": "test",
+      "blurb": "Return a typed error carrying the field name, and let errors.As dig it out.",
+      "hints": [
+        "Any type with an Error() string method is an error -- ValidationError already qualifies.",
+        "errors.As stores the concrete *ValidationError into its second argument when the chain holds one; a plain fmt.Errorf hides the field forever.",
+        "Return `\u0026ValidationError{Field: \"age\"}` when age is negative."
+      ]
+    },
+    {
+      "id": "01_generic_func",
+      "section": "12_generics",
+      "name": "Type Parameters",
+      "kind": "compile",
+      "blurb": "Replace two type-specific Max functions with one generic Max.",
+      "hints": [
+        "A generic function declares type parameters in square brackets right after its name: func Max[T cmp.Ordered](a, b T) T.",
+        "Import \"cmp\": cmp.Ordered is a ready-made constraint covering every type that supports \u003c -- all the numbers plus strings.",
+        "Max's body is exactly MaxInt's body. Delete MaxInt and MaxFloat, then let the test infer T for ints, floats, and strings."
+      ]
+    },
+    {
+      "id": "02_constraints",
+      "section": "12_generics",
+      "name": "Writing Constraints",
+      "kind": "test",
+      "blurb": "Make a union-constrained sum actually add up its slice.",
+      "hints": [
+        "The signature is already right; the body never touches xs, so total stays at zero.",
+        "Range over xs and accumulate each element into total inside the loop.",
+        "for _, x := range xs { total += x }, then return total after the loop."
+      ]
+    },
+    {
+      "id": "03_comparable",
+      "section": "12_generics",
+      "name": "The comparable Constraint",
+      "kind": "test",
+      "blurb": "Search any slice of comparable values for the first match.",
+      "hints": [
+        "indexOf always returns -1 -- it never looks at xs.",
+        "Range with the index: for i, x := range xs, and return i the first time x == v.",
+        "If the loop finishes without a match, return -1."
+      ]
+    },
+    {
+      "id": "04_generic_type",
+      "section": "12_generics",
+      "name": "Generic Types",
+      "kind": "compile",
+      "blurb": "Generalize IntStack into a Stack that stores any element type.",
+      "hints": [
+        "Rename IntStack to Stack[T any] and swap every int in the struct and its methods for T.",
+        "Methods restate the type parameter in their receiver: func (s *Stack[T]) Push(v T).",
+        "For Pop on an empty stack, var zero T is the zero value of whatever T turns out to be."
+      ]
+    },
+    {
+      "id": "01_channels",
+      "section": "13_concurrency",
+      "name": "Channels",
+      "kind": "test",
+      "blurb": "Pass a value through a channel, then signal that it is closed.",
+      "hints": [
+        "A send is ch \u003c- n; it hands the value over to a receiver.",
+        "close(ch) tells receivers that no more values will arrive.",
+        "The whole body: ch \u003c- n, then close(ch)."
+      ]
+    },
+    {
+      "id": "02_goroutines",
+      "section": "13_concurrency",
+      "name": "go Statements",
+      "kind": "test",
+      "blurb": "Run the sends on a goroutine so they can meet their receiver.",
+      "hints": [
+        "The test does not start receiving until fillAsync has returned, so an inline send on the unbuffered channel blocks with nobody to receive it.",
+        "Wrap the send loop in go func() { ... }() so fillAsync can return while the sends continue in the background.",
+        "Inside the goroutine: defer close(ch), then loop over nums sending each value."
+      ]
+    },
+    {
+      "id": "03_select",
+      "section": "13_concurrency",
+      "name": "select",
+      "kind": "test",
+      "blurb": "Merge two channels into one with a select loop.",
+      "hints": [
+        "select with one case per input receives from whichever channel has a value ready.",
+        "Receive as v, ok := \u003c-a: ok == false means that channel is closed and drained. Setting the variable to nil disables its case.",
+        "Loop while a != nil || b != nil; when both are nil, fall out and let defer close(out) run."
+      ]
+    },
+    {
+      "id": "04_waitgroup",
+      "section": "13_concurrency",
+      "name": "WaitGroups",
+      "kind": "test",
+      "blurb": "Sum a slice in parallel chunks with goroutines and a WaitGroup.",
+      "hints": [
+        "Split nums into `parts` contiguous chunks and give each chunk to its own goroutine.",
+        "Call wg.Add(1) before each go, defer wg.Done() inside, and wg.Wait() after the loop; each goroutine sends its partial sum on a shared (buffered) channel.",
+        "After wg.Wait(), close the channel and range over it, adding the partial sums into the total."
+      ]
+    },
+    {
+      "id": "05_mutex",
+      "section": "13_concurrency",
+      "name": "sync.Mutex",
+      "kind": "test",
+      "blurb": "Guard a shared map against 200 concurrent writers with a mutex.",
+      "hints": [
+        "Add a mu sync.Mutex field to SafeCounter; its zero value is ready to use.",
+        "Lock at the top of Increment before writing the map, and in Get before reading it.",
+        "Make defer mu.Unlock() the line right after each Lock."
+      ]
+    },
+    {
+      "id": "06_context",
+      "section": "13_concurrency",
+      "name": "context",
+      "kind": "test",
+      "blurb": "Let a blocking wait bail out early when the context is cancelled.",
+      "hints": [
+        "Waiting only on \u003c-ready never looks at ctx, so a cancelled context is ignored.",
+        "select on both channels: \u003c-ready means return nil; \u003c-ctx.Done() means return ctx.Err().",
+        "ctx.Err() is context.Canceled for a cancelled context -- exactly what the test checks with errors.Is."
+      ]
+    },
+    {
+      "id": "01_time",
+      "section": "14_stdlib",
+      "name": "Time \u0026 Durations",
+      "kind": "test",
+      "blurb": "Turn a number of seconds into a compact duration string.",
+      "hints": [
+        "A time.Duration counts nanoseconds, and time.Second is one too — so time.Duration(s) * time.Second is the duration for s seconds.",
+        "Put the duration in a variable and call its String method: `d := time.Duration(s) * time.Second; return d.String()`.",
+        "One-liner: `return (time.Duration(s) * time.Second).String()` — 90 becomes \"1m30s\", 3661 becomes \"1h1m1s\"."
+      ]
+    },
+    {
+      "id": "02_json",
+      "section": "14_stdlib",
+      "name": "encoding/json",
+      "kind": "test",
+      "blurb": "Marshal a struct to JSON, with the tags deciding the keys.",
+      "hints": [
+        "You will need to add the \"encoding/json\" import; json.Marshal(u) returns ([]byte, error).",
+        "Check the error first — return \"\" if err != nil — otherwise convert the bytes with string(data).",
+        "`data, err := json.Marshal(u); if err != nil { return \"\" }; return string(data)`."
+      ]
+    },
+    {
+      "id": "03_io",
+      "section": "14_stdlib",
+      "name": "io.Reader",
+      "kind": "test",
+      "blurb": "Drain an io.Reader, count the bytes, and pass errors along.",
+      "hints": [
+        "io.ReadAll(r) reads until EOF and returns the bytes plus an error; len(data) is the byte count.",
+        "Do not swallow the error: if err != nil, return it unchanged so the caller can react.",
+        "`data, err := io.ReadAll(r); if err != nil { return 0, err }; return len(data), nil`."
+      ]
+    },
+    {
+      "id": "04_defer_recover",
+      "section": "14_stdlib",
+      "name": "defer \u0026 recover",
+      "kind": "test",
+      "blurb": "Catch a panic with defer and recover instead of crashing.",
+      "hints": [
+        "A deferred function runs when catchPanic exits — even while a panic is unwinding through it.",
+        "Inside the deferred closure, `if recover() != nil` means f panicked; assign true to the named return `panicked`.",
+        "`defer func() { if recover() != nil { panicked = true } }()` placed before the call to f()."
+      ]
+    },
+    {
+      "id": "05_write_test",
+      "section": "14_stdlib",
+      "name": "Write Your Own Test",
+      "kind": "test",
+      "blurb": "The code is correct this time — you write the table-driven test.",
+      "hints": [
+        "A table-driven test declares a slice of structs with inputs and wanted results, then loops over it with t.Errorf on mismatches.",
+        "Shape: `cases := []struct{ in string; want bool }{...}`, then `for _, c := range cases { if got := isPalindrome(c.in); got != c.want { t.Errorf(...) } }`.",
+        "Make sure the table includes \"Level\" -\u003e false (case-sensitive!) and \"\" -\u003e true, plus the other cases listed in exercise.go."
+      ]
+    }
+  ]
+}
