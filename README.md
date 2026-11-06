@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="docs/mascot.svg" alt="The gopherlings mascot: a friendly gopher with a laptop" width="300"/>
+<img src="docs/gopher.png" alt="The official Go gopher, designed by Renée French" width="260"/>
 
 # gopherlings
 
@@ -156,8 +156,9 @@ format, rules, and validation workflow.
 
 - [rustlings](https://github.com/rust-lang/rustlings) and
   [ziglings](https://codeberg.org/ziglings/exercises) — the original ideas.
-- The Go gopher (by Renée French) — the inspiration for our mascot, who is an
-  *original* gopherling, not the official one.
+- The Go gopher in the header is the official mascot, designed by
+  **Renée French**, and used under the
+  [Creative Commons Attribution license](https://go.dev/doc/faq#gopher).
 
 <details>
 <summary>🖼️ terminal edition of the mascot</summary>
